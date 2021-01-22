@@ -1,17 +1,17 @@
 from django import forms
 
-from .models import Survey, Question, Option
+from .models import Menu, Lunch, Option
 
 
-class SurveyForm(forms.ModelForm):
+class MenuForm(forms.ModelForm):
     class Meta:
-        model = Survey
+        model = Menu
         fields = ["title"]
 
 
-class QuestionForm(forms.ModelForm):
+class LunchForm(forms.ModelForm):
     class Meta:
-        model = Question
+        model = Lunch
         fields = ["prompt"]
 
 
