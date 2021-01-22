@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-class Survey(models.Model):
+class Menu(models.Model):
     """A menu created by a user."""
 
     title = models.CharField(max_length=64)
@@ -12,24 +12,24 @@ class Survey(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 
-class Question(models.Model):
+class Lunch(models.Model):
     """An option in a menu"""
 
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     prompt = models.CharField(max_length=128)
 
 
 class Option(models.Model):
     """A multi-choice option available as part of a menu option."""
 
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    lunch = models.ForeignKey(Lunch, on_delete=models.CASCADE)
     text = models.CharField(max_length=128)
 
 
 class Submission(models.Model):
     """A set of answers of menu options."""
 
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     is_complete = models.BooleanField(default=False)
 
