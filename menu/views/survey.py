@@ -11,14 +11,14 @@ from ..forms import SurveyForm, QuestionForm, OptionForm, AnswerForm, BaseAnswer
 
 @login_required
 def survey_list(request):
-    """User can view all their surveys"""
+    """User can view all their menus"""
     surveys = Survey.objects.filter(creator=request.user).order_by("-created_at").all()
     return render(request, "menu/list.html", {"menu": surveys})
 
 
 @login_required
 def detail(request, pk):
-    """User can view an active survey"""
+    """User can view an active menu"""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
             pk=pk, creator=request.user, is_active=True
@@ -29,8 +29,7 @@ def detail(request, pk):
     questions = survey.question_set.all()
 
     # Calculate the results.
-    # This is a naive implementation and it could be optimised to hit the database less.
-    # See here for more info on how you might improve this code: https://docs.djangoproject.com/en/3.1/topics/db/aggregation/
+    # This is a native implementation and it could be optimised to hit the database less.
     for question in questions:
         option_pks = question.option_set.values_list("pk", flat=True)
         total_answers = Answer.objects.filter(option_id__in=option_pks).count()
@@ -56,7 +55,7 @@ def detail(request, pk):
 
 @login_required
 def create(request):
-    """User can create a new survey"""
+    """User can create a new menu"""
     if request.method == "POST":
         form = SurveyForm(request.POST)
         if form.is_valid():
@@ -72,7 +71,7 @@ def create(request):
 
 @login_required
 def delete(request, pk):
-    """User can delete an existing survey"""
+    """User can delete an existing menu"""
     survey = get_object_or_404(Survey, pk=pk, creator=request.user)
     if request.method == "POST":
         survey.delete()
@@ -82,7 +81,7 @@ def delete(request, pk):
 
 @login_required
 def edit(request, pk):
-    """User can add questions to a draft survey, then acitvate the survey"""
+    """User can add options of lunch to a draft menu, then acitvate the menu"""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
             pk=pk, creator=request.user, is_active=False
@@ -101,7 +100,7 @@ def edit(request, pk):
 
 @login_required
 def question_create(request, pk):
-    """User can add a question to a draft survey"""
+    """User can add an option to a draft menu"""
     survey = get_object_or_404(Survey, pk=pk, creator=request.user)
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -118,7 +117,7 @@ def question_create(request, pk):
 
 @login_required
 def option_create(request, survey_pk, question_pk):
-    """User can add options to a survey question"""
+    """User can add options to a lunch menu"""
     survey = get_object_or_404(Survey, pk=survey_pk, creator=request.user)
     question = Question.objects.get(pk=question_pk)
     if request.method == "POST":
@@ -139,7 +138,7 @@ def option_create(request, survey_pk, question_pk):
 
 
 def start(request, pk):
-    """Survey-taker can start a survey"""
+    """User can start a menu"""
     survey = get_object_or_404(Survey, pk=pk, is_active=True)
     if request.method == "POST":
         sub = Submission.objects.create(survey=survey)
@@ -149,7 +148,7 @@ def start(request, pk):
 
 
 def submit(request, survey_pk, sub_pk):
-    """Survey-taker submit their completed survey."""
+    """User submit their completed menu."""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
             pk=survey_pk, is_active=True
@@ -191,6 +190,6 @@ def submit(request, survey_pk, sub_pk):
 
 
 def thanks(request, pk):
-    """Survey-taker receives a thank-you message."""
+    """User receives a thank-you message."""
     survey = get_object_or_404(Survey, pk=pk, is_active=True)
     return render(request, "menu/thanks.html", {"survey": survey})
