@@ -13,15 +13,15 @@
     }
 </style>
 <div class="ui center aligned basic very padded segment">
-    <h1 class="ui header dividing">Your answers to {{ survey.title }}</h1>
+    <h1 class="ui header dividing">Your choice to {{ menu.title }}</h1>
     <form method="post" novalidate>
         {% csrf_token %}
         {{ formset.management_form }}
-        {% for question, form in question_forms %}
+        {% for lunch, form in lunch_forms %}
         <div class="ui basic padded segment left aligned">
             <div class="ui form {% if form.errors %}error{% endif %}">
                 <h4 class="ui header">
-                    Question {{ forloop.counter }}: {{ question.prompt }}
+                    Lunch {{ forloop.counter }}: {{ lunch.prompt }}
                 </h4>
                 {% for field in form %}
                 <div class="field {% if field.errors %}error{% endif %}">
