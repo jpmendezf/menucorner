@@ -4,12 +4,12 @@
 {% block content %}
 <div class="ui center aligned basic very padded segment">
     <h1 class="ui header">Welcome {{ request.user.username }}</h1>
-    <a href="{% url 'survey-create' %}">
+    <a href="{% url 'menu-create' %}">
         <div class="ui primary button">Create a new menu</div>
     </a>
 </div>
 <div class="ui center aligned basic very padded segment">
-    {% if surveys %}
+    {% if menus %}
     <h2 class="ui header">Your menus</h2>
     <table class="ui celled table">
         <thead>
@@ -20,21 +20,21 @@
             </tr>
         </thead>
         <tbody>
-            {% for survey in surveys %}
+            {% for menu in menus %}
             <tr>
-                <td>{{ survey.title }}</td>
-                <td>{{ survey.created_at }}</td>
+                <td>{{ menu.title }}</td>
+                <td>{{ menu.created_at }}</td>
                 <td>
-                    {% if survey.is_active %}
-                    <a href="{% url 'survey-detail' survey.pk %}">
+                    {% if menu.is_active %}
+                    <a href="{% url 'menu-detail' menu.pk %}">
                         <div class="ui button">view</div>
                     </a>
                     {% else %}
-                    <a href="{% url 'survey-edit' survey.pk %}">
+                    <a href="{% url 'menu-edit' menu.pk %}">
                         <div class="ui button">edit</div>
                     </a>
                     {% endif %}
-                    <form method="post" action="{% url 'survey-delete' survey.pk %}" style="display: inline-block;">
+                    <form method="post" action="{% url 'menu-delete' menu.pk %}" style="display: inline-block;">
                         {% csrf_token %}
                         <button class=" ui button">delete</button>
                     </form>
