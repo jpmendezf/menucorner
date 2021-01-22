@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Survey',
+            name='Menu',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=64)),
@@ -31,15 +31,15 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('is_complete', models.BooleanField(default=False)),
-                ('survey', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.survey')),
+                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.menu')),
             ],
         ),
         migrations.CreateModel(
-            name='Question',
+            name='Lunch',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('prompt', models.CharField(max_length=128)),
-                ('survey', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.survey')),
+                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.menu')),
             ],
         ),
         migrations.CreateModel(
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.CharField(max_length=128)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.question')),
+                ('lunch', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.lunch')),
             ],
         ),
         migrations.CreateModel(
