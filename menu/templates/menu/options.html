@@ -6,7 +6,7 @@
     <h1 class="ui header dividing">Add options to option</h1>
     <div class="ui container left aligned">
         <h4 class="ui header">
-            option: {{ question.prompt }}
+            option: {{ lunch.prompt }}
         </h4>
         <ul>
             {% for option in options %}
@@ -40,7 +40,7 @@
         </form>
         {% if options|length > 0 %}
         <div class="ui divider"></div>
-        <a href="{% url 'survey-edit' survey.pk %}">
+        <a href="{% url 'menu-edit' menu.pk %}">
             <div class="ui button">Done adding options</div>
         </a>
         {% endif %}
