@@ -7,7 +7,7 @@
     <h3 class="ui header">You have {{ num_submissions }} submissions</h3>
     <h3 class="ui header">menu URL: <a href="{{public_url}}">{{ public_url }}</a></h3>
     <h1 class="ui header dividing">Results</h1>
-    {% for lunch in questions %}
+    {% for lunch in lunchs %}
     <div class="ui basic padded segment left aligned">
         <h4 class="ui header">
             Lunch {{ forloop.counter }} / {{ lunchs|length }}: {{ lunch.prompt }}
