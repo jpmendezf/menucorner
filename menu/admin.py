@@ -20,7 +20,7 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        message = Mail(from_email='pablo@team.cr',to_emails='edwinpizarrodiaz@gmail.com,pablo@team.cr' ,subject='CorneMenu Day 23/1/2021',html_content='<a href="http://35.222.64.43:8006/menus/1/start/">CornerMenu Day 21/01/2021</a>')
+        message = Mail(from_email='pablo@team.cr',to_emails=self.recipient_list ,subject='CorneMenu Day 23/1/2021',html_content='<a href="http://35.222.64.43:8006/menus/1/start/">CornerMenu Day 21/01/2021</a>')
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
