@@ -1,7 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
+class BroadCast_Email(models.Model):
+    subject = models.CharField(max_length=200)
+    created = models.DateTimeField(default=timezone.now)
+    body = RichTextUploadingField(config_name="default")
+    message = RichTextUploadingField(config_name="default")
+
+    def __unicode__(self):
+        return self.subject
+
+    class Meta:
+        verbose_name = "BroadCast Email to all Member"
+        verbose_name_plural = "BroadCast Email"
 
 class Menu(models.Model):
     """A menu created by a user."""

@@ -14,6 +14,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "menu",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -59,9 +61,36 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-STATIC_URL = "/static/"
+STATIC_URL = "/opt/bitnami/apache/htdocs/menucorner2/static/"
 STATICFILES_DIRS = []
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/menus/"
 INTERNAL_IPS = ["127.0.0.1"]
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_RESTRICT_BY_USER = True #Only who upload image see it
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_BROWSE_SHOW_DIRS = True # Shows directory of image in the server
+CKEDITOR_RESTRICT_BY_DATE = True # Arranges image in terms of date uploaded
+CKEDITOR_IMAGE_BACKEND = "pillow"
+STATIC_ROOT = '/opt/bitnami/apache/htdocs/menucorner2/static/'
 
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+
+SENDGRID_API_KEY = os.getenv('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')
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = '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' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+DEFAULT_FROM_EMAIL  = 'pablo@team.cr'
+
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+        'extraPlugins': 'codesnippet',
+    },
+}

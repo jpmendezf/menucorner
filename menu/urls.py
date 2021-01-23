@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include, re_path
 
 from . import views
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path("menus/<int:menu_pk>/submit/<int:sub_pk>/", views.menu.submit, name="menu-submit"),
     path("menus/<int:pk>/thanks/", views.menu.thanks, name="menu-thanks"),
     path("admin", admin.site.urls),
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:
