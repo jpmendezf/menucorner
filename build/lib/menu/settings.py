@@ -98,6 +98,4 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-SECRET_KEY = 'not_empty'
-SLACK_BACKEND = 'tests.backends.StorageBackend'
-SLACK_TOKEN = 'fake-token'
+

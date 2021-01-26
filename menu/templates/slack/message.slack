@@ -1,0 +1,5 @@
+{% extends django_slack %}
+
+{% block text %}
+Link menu: {{ foo.bar|urlize }} {{ foo.user.get_full_name|safe }}
+{% endblock %}

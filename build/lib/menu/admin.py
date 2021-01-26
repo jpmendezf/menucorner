@@ -24,12 +24,14 @@ class EmailThread(threading.Thread):
         message = Mail(from_email='pablo@team.cr',to_emails=self.recipient_list ,subject='CorneMenu Day 23/1/2021',html_content='<a href="http://35.222.64.43:8006/menus/1/start/">CornerMenu Day 21/01/2021</a>')
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-            client = slack_message('slack/message.slack', {'text': 'test'})
+            client = slack_message('slack/message.slack')
+            responseslack = client.chat_postMessage(channel='#employees', text="test from django!!")  
             response = sg.send(message)
             print(response.status_code)
             print(response.body)
             print(response.headers)
             print(message)
+            print(responseslack)
         except Exception as e:
             print(e.message)
 
